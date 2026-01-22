@@ -1,10 +1,12 @@
 """Agent orchestrator core with LlamaIndex and Grok integration."""
 
+import asyncio
 import logging
 import time
 from typing import Any, Dict, List, Optional
 
 from llama_index.core.agent import ReActAgent
+from llama_index.core.workflow import Context
 from llama_index.llms.openai import OpenAI
 
 from src.agents.context_manager import ContextManager
@@ -47,11 +49,10 @@ class AgentOrchestrator:
         )
 
         # Create ReAct agent
-        self.agent = ReActAgent.from_tools(
+        self.agent = ReActAgent(
             tools=tools,
             llm=llm,
             verbose=True,
-            max_iterations=self.settings.agent.max_iterations,
         )
 
     def plan(self, query: str) -> str:
@@ -113,12 +114,23 @@ class AgentOrchestrator:
             # The agent will use tools based on the query and plan
             full_query = f"Query: {query}\n\nPlan: {plan}\n\nExecute this plan step by step."
 
-            response = self.agent.chat(full_query)
+            # Create context for the agent
+            ctx = Context(self.agent)
+            
+            # Run the agent and get the handler
+            handler = self.agent.run(full_query, ctx=ctx)
+            
+            # Await the handler to get the response (using asyncio.run for sync context)
+            async def get_response():
+                return await handler
+            
+            response_obj = asyncio.run(get_response())
+            response = str(response_obj)
 
             execution_time = time.time() - start_time
 
             result = {
-                "response": str(response),
+                "response": response,
                 "execution_time": execution_time,
                 "steps": execution_steps,
                 "success": True,
@@ -126,7 +138,7 @@ class AgentOrchestrator:
 
             self.context_manager.add_step(
                 "execution",
-                str(response),
+                response,
                 {"execution_time": execution_time},
             )
 

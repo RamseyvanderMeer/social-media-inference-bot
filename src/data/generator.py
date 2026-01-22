@@ -882,10 +882,10 @@ def generate_mock_data(
         grok_temperature=grok_temperature,
     )
     posts = generator.generate_dataset(
-        num_posts=100,
-        num_threads=25,
-        num_evolving_threads=5,
-        num_conflicting_sets=3,
+        num_posts=1000,
+        num_threads=50,
+        num_evolving_threads=10,
+        num_conflicting_sets=5,
     )
     generator.save_dataset(posts, output_path)
 
