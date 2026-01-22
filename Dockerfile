@@ -30,7 +30,8 @@ COPY . .
 
 # Copy and set up entrypoint script
 COPY docker-entrypoint.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+RUN sed -i 's/\r$//' /usr/local/bin/docker-entrypoint.sh && \
+    chmod +x /usr/local/bin/docker-entrypoint.sh
 
 # Create necessary directories with proper permissions
 RUN mkdir -p /app/data /app/evaluation_results && \
