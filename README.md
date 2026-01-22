@@ -115,19 +115,140 @@ xai/
 
 ## Docker Deployment
 
-### Build and Run
+The application is fully dockerized and can run in a self-contained environment. All dependencies and setup are handled automatically.
 
+### Prerequisites
+
+- Docker Engine 20.10+
+- Docker Compose 2.0+
+- Grok API key
+- OpenAI API key (for embeddings)
+
+### Quick Start
+
+1. **Create environment file:**
 ```bash
-# Build image
+cp .env.example .env
+# Edit .env and add your API keys
+```
+
+2. **Build and run:**
+```bash
+# Build the Docker image
 docker-compose build
 
-# Run container
+# Start the container in interactive mode
 docker-compose up
+```
+
+3. **The container will automatically:**
+   - Check for required environment variables
+   - Generate mock data if not present
+   - Set up the vector store if needed
+   - Start the interactive agent
+
+### Docker Commands
+
+#### Interactive Mode (Default)
+```bash
+docker-compose up
+# or
+docker-compose run --rm agent python run.py interactive
+```
+
+#### Single Query
+```bash
+docker-compose run --rm agent python run.py query "What are people saying about AI?"
+```
+
+#### Generate Data
+```bash
+docker-compose run --rm agent python run.py generate-data
+```
+
+#### Setup Vector Store
+```bash
+docker-compose run --rm agent python run.py setup-vector-store
+```
+
+#### Run Evaluation
+```bash
+docker-compose run --rm agent python run.py evaluate --num-queries 5
+```
+
+#### Access Container Shell
+```bash
+docker-compose exec agent bash
+```
+
+#### View Logs
+```bash
+docker-compose logs -f agent
+```
+
+#### Stop Container
+```bash
+docker-compose down
 ```
 
 ### Environment Variables
 
-Set environment variables in `docker-compose.yml` or use a `.env` file.
+The container uses environment variables from:
+1. `.env` file (recommended)
+2. `docker-compose.yml` environment section
+3. System environment variables
+
+**Required variables:**
+- `GROK_API_KEY`: Your Grok API key
+- `OPENAI_API_KEY`: Your OpenAI API key (for embeddings)
+
+**Optional variables:**
+- `GROK_API_BASE_URL`: Default: `https://api.x.ai/v1`
+- `GROK_MODEL`: Default: `grok-beta`
+- `OPENAI_API_BASE_URL`: Default: `https://api.openai.com/v1`
+- `OPENAI_MODEL`: Default: `gpt-4o-mini`
+- `CHROMA_DB_PATH`: Default: `/app/data/chroma_db`
+- `MAX_ITERATIONS`: Default: `10`
+- `LOG_LEVEL`: Default: `INFO`
+
+### Data Persistence
+
+The following directories are mounted as volumes for data persistence:
+- `./data` → `/app/data` (vector store and mock data)
+- `./evaluation_results` → `/app/evaluation_results` (evaluation outputs)
+
+Data persists between container restarts.
+
+### Building from Dockerfile Directly
+
+If you prefer using Docker directly without Compose:
+
+```bash
+# Build image
+docker build -t xai-agentic-workflow .
+
+# Run container
+docker run -it --rm \
+  --env-file .env \
+  -v $(pwd)/data:/app/data \
+  -v $(pwd)/evaluation_results:/app/evaluation_results \
+  xai-agentic-workflow
+```
+
+### Troubleshooting
+
+**Container fails to start:**
+- Check that `.env` file exists and contains valid API keys
+- Verify Docker has enough resources (memory, disk space)
+- Check logs: `docker-compose logs agent`
+
+**Data not persisting:**
+- Ensure volumes are properly mounted in `docker-compose.yml`
+- Check file permissions on host directories
+
+**Vector store issues:**
+- Delete `./data/chroma_db` and let container recreate it
+- Run: `docker-compose run --rm agent python run.py setup-vector-store`
 
 ## Evaluation
 
