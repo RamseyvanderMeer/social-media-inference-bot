@@ -1,0 +1,670 @@
+{
+  "total_queries": 30,
+  "tool_mentions_in_plans": {
+    "analyze_sentiment": 30,
+    "extract_entities": 30,
+    "search_x_data": 30,
+    "summarize_thread": 30
+  },
+  "tool_mentions_in_execution": {
+    "analyze_sentiment": 8,
+    "extract_entities": 9,
+    "summarize_thread": 7,
+    "search_x_data": 6
+  },
+  "tool_usage_gap": {
+    "analyze_sentiment": 22,
+    "extract_entities": 21,
+    "search_x_data": 24,
+    "summarize_thread": 23
+  },
+  "queries_with_tool_plans": 30,
+  "queries_with_tool_execution": 10,
+  "queries_by_tool_effectiveness": {
+    "tools_planned_not_used": [
+      "What are people saying about AI?",
+      "Show me posts about machine learning",
+      "What do people think about remote work?",
+      "Compare different opinions about AI replacing jobs",
+      "What are the main arguments for and against blockchain?",
+      "Analyze sentiment of discussions about startups",
+      "Find conflicting viewpoints on cloud computing",
+      "What are the key themes in data science discussions?",
+      "What were the main topics discussed last week?",
+      "How have opinions about AI changed over time?",
+      "What do people think about Python vs JavaScript?",
+      "Find posts with conflicting opinions about remote work",
+      "What are the different perspectives on AI safety?",
+      "Who are the main people discussing AI?",
+      "What companies are mentioned in tech discussions?",
+      "What's the sentiment around machine learning?",
+      "How do people feel about cloud computing?",
+      "Compare sentiment of Python vs JavaScript discussions",
+      "What are the main topics and their sentiment scores?",
+      "Find conflicting information about remote work and summarize both sides"
+    ],
+    "partial_usage": [
+      "Find discussions about Python programming",
+      "What topics are trending in tech discussions?",
+      "Analyze sentiment of blockchain discussions",
+      "Find and summarize evolving discussions",
+      "Find discussions about AI, analyze sentiment, and extract key entities",
+      "Analyze threads about startups and extract key insights"
+    ],
+    "perfect_match": [
+      "Find recent discussions about cybersecurity",
+      "Extract key topics from startup discussions",
+      "Summarize the main points from thread discussions",
+      "What are the key arguments in long threads?"
+    ]
+  },
+  "execution_steps_tracked": 0,
+  "detailed_breakdown": [
+    {
+      "query": "What are people saying about AI?",
+      "success": true,
+      "tools_planned": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "tools_executed": [],
+      "planned_not_executed": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "executed_not_planned": [],
+      "execution_steps_count": 0,
+      "category": "tools_planned_not_used"
+    },
+    {
+      "query": "Find discussions about Python programming",
+      "success": true,
+      "tools_planned": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "tools_executed": [
+        "analyze_sentiment",
+        "extract_entities",
+        "summarize_thread"
+      ],
+      "planned_not_executed": [
+        "search_x_data"
+      ],
+      "executed_not_planned": [],
+      "execution_steps_count": 0,
+      "category": "partial_usage"
+    },
+    {
+      "query": "What topics are trending in tech discussions?",
+      "success": true,
+      "tools_planned": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "tools_executed": [
+        "extract_entities"
+      ],
+      "planned_not_executed": [
+        "analyze_sentiment",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "executed_not_planned": [],
+      "execution_steps_count": 0,
+      "category": "partial_usage"
+    },
+    {
+      "query": "Show me posts about machine learning",
+      "success": true,
+      "tools_planned": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "tools_executed": [],
+      "planned_not_executed": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "executed_not_planned": [],
+      "execution_steps_count": 0,
+      "category": "tools_planned_not_used"
+    },
+    {
+      "query": "What do people think about remote work?",
+      "success": true,
+      "tools_planned": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "tools_executed": [],
+      "planned_not_executed": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "executed_not_planned": [],
+      "execution_steps_count": 0,
+      "category": "tools_planned_not_used"
+    },
+    {
+      "query": "Compare different opinions about AI replacing jobs",
+      "success": true,
+      "tools_planned": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "tools_executed": [],
+      "planned_not_executed": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "executed_not_planned": [],
+      "execution_steps_count": 0,
+      "category": "tools_planned_not_used"
+    },
+    {
+      "query": "What are the main arguments for and against blockchain?",
+      "success": true,
+      "tools_planned": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "tools_executed": [],
+      "planned_not_executed": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "executed_not_planned": [],
+      "execution_steps_count": 0,
+      "category": "tools_planned_not_used"
+    },
+    {
+      "query": "Analyze sentiment of discussions about startups",
+      "success": false,
+      "tools_planned": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "tools_executed": [],
+      "planned_not_executed": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "executed_not_planned": [],
+      "execution_steps_count": 0,
+      "category": "tools_planned_not_used"
+    },
+    {
+      "query": "Find conflicting viewpoints on cloud computing",
+      "success": true,
+      "tools_planned": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "tools_executed": [],
+      "planned_not_executed": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "executed_not_planned": [],
+      "execution_steps_count": 0,
+      "category": "tools_planned_not_used"
+    },
+    {
+      "query": "What are the key themes in data science discussions?",
+      "success": true,
+      "tools_planned": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "tools_executed": [],
+      "planned_not_executed": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "executed_not_planned": [],
+      "execution_steps_count": 0,
+      "category": "tools_planned_not_used"
+    },
+    {
+      "query": "What were the main topics discussed last week?",
+      "success": true,
+      "tools_planned": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "tools_executed": [],
+      "planned_not_executed": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "executed_not_planned": [],
+      "execution_steps_count": 0,
+      "category": "tools_planned_not_used"
+    },
+    {
+      "query": "How have opinions about AI changed over time?",
+      "success": true,
+      "tools_planned": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "tools_executed": [],
+      "planned_not_executed": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "executed_not_planned": [],
+      "execution_steps_count": 0,
+      "category": "tools_planned_not_used"
+    },
+    {
+      "query": "Find recent discussions about cybersecurity",
+      "success": true,
+      "tools_planned": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "tools_executed": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "planned_not_executed": [],
+      "executed_not_planned": [],
+      "execution_steps_count": 0,
+      "category": "perfect_match"
+    },
+    {
+      "query": "What do people think about Python vs JavaScript?",
+      "success": true,
+      "tools_planned": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "tools_executed": [],
+      "planned_not_executed": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "executed_not_planned": [],
+      "execution_steps_count": 0,
+      "category": "tools_planned_not_used"
+    },
+    {
+      "query": "Find posts with conflicting opinions about remote work",
+      "success": false,
+      "tools_planned": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "tools_executed": [],
+      "planned_not_executed": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "executed_not_planned": [],
+      "execution_steps_count": 0,
+      "category": "tools_planned_not_used"
+    },
+    {
+      "query": "What are the different perspectives on AI safety?",
+      "success": true,
+      "tools_planned": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "tools_executed": [],
+      "planned_not_executed": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "executed_not_planned": [],
+      "execution_steps_count": 0,
+      "category": "tools_planned_not_used"
+    },
+    {
+      "query": "Who are the main people discussing AI?",
+      "success": true,
+      "tools_planned": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "tools_executed": [],
+      "planned_not_executed": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "executed_not_planned": [],
+      "execution_steps_count": 0,
+      "category": "tools_planned_not_used"
+    },
+    {
+      "query": "What companies are mentioned in tech discussions?",
+      "success": true,
+      "tools_planned": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "tools_executed": [],
+      "planned_not_executed": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "executed_not_planned": [],
+      "execution_steps_count": 0,
+      "category": "tools_planned_not_used"
+    },
+    {
+      "query": "Extract key topics from startup discussions",
+      "success": true,
+      "tools_planned": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "tools_executed": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "planned_not_executed": [],
+      "executed_not_planned": [],
+      "execution_steps_count": 0,
+      "category": "perfect_match"
+    },
+    {
+      "query": "What's the sentiment around machine learning?",
+      "success": true,
+      "tools_planned": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "tools_executed": [],
+      "planned_not_executed": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "executed_not_planned": [],
+      "execution_steps_count": 0,
+      "category": "tools_planned_not_used"
+    },
+    {
+      "query": "How do people feel about cloud computing?",
+      "success": true,
+      "tools_planned": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "tools_executed": [],
+      "planned_not_executed": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "executed_not_planned": [],
+      "execution_steps_count": 0,
+      "category": "tools_planned_not_used"
+    },
+    {
+      "query": "Analyze sentiment of blockchain discussions",
+      "success": true,
+      "tools_planned": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "tools_executed": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data"
+      ],
+      "planned_not_executed": [
+        "summarize_thread"
+      ],
+      "executed_not_planned": [],
+      "execution_steps_count": 0,
+      "category": "partial_usage"
+    },
+    {
+      "query": "Summarize the main points from thread discussions",
+      "success": true,
+      "tools_planned": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "tools_executed": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "planned_not_executed": [],
+      "executed_not_planned": [],
+      "execution_steps_count": 0,
+      "category": "perfect_match"
+    },
+    {
+      "query": "What are the key arguments in long threads?",
+      "success": true,
+      "tools_planned": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "tools_executed": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "planned_not_executed": [],
+      "executed_not_planned": [],
+      "execution_steps_count": 0,
+      "category": "perfect_match"
+    },
+    {
+      "query": "Find and summarize evolving discussions",
+      "success": true,
+      "tools_planned": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "tools_executed": [
+        "search_x_data"
+      ],
+      "planned_not_executed": [
+        "analyze_sentiment",
+        "extract_entities",
+        "summarize_thread"
+      ],
+      "executed_not_planned": [],
+      "execution_steps_count": 0,
+      "category": "partial_usage"
+    },
+    {
+      "query": "Find discussions about AI, analyze sentiment, and extract key entities",
+      "success": true,
+      "tools_planned": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "tools_executed": [
+        "analyze_sentiment",
+        "extract_entities",
+        "summarize_thread"
+      ],
+      "planned_not_executed": [
+        "search_x_data"
+      ],
+      "executed_not_planned": [],
+      "execution_steps_count": 0,
+      "category": "partial_usage"
+    },
+    {
+      "query": "Compare sentiment of Python vs JavaScript discussions",
+      "success": true,
+      "tools_planned": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "tools_executed": [],
+      "planned_not_executed": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "executed_not_planned": [],
+      "execution_steps_count": 0,
+      "category": "tools_planned_not_used"
+    },
+    {
+      "query": "What are the main topics and their sentiment scores?",
+      "success": true,
+      "tools_planned": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "tools_executed": [],
+      "planned_not_executed": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "executed_not_planned": [],
+      "execution_steps_count": 0,
+      "category": "tools_planned_not_used"
+    },
+    {
+      "query": "Find conflicting information about remote work and summarize both sides",
+      "success": true,
+      "tools_planned": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "tools_executed": [],
+      "planned_not_executed": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "executed_not_planned": [],
+      "execution_steps_count": 0,
+      "category": "tools_planned_not_used"
+    },
+    {
+      "query": "Analyze threads about startups and extract key insights",
+      "success": true,
+      "tools_planned": [
+        "analyze_sentiment",
+        "extract_entities",
+        "search_x_data",
+        "summarize_thread"
+      ],
+      "tools_executed": [
+        "analyze_sentiment",
+        "extract_entities",
+        "summarize_thread"
+      ],
+      "planned_not_executed": [
+        "search_x_data"
+      ],
+      "executed_not_planned": [],
+      "execution_steps_count": 0,
+      "category": "partial_usage"
+    }
+  ]
+}
