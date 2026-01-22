@@ -40,12 +40,12 @@ class AgentOrchestrator:
         # Initialize LlamaIndex agent with tools
         tools = self.tool_registry.get_tools()
 
-        # Create LLM for LlamaIndex agent (using Grok via OpenAI-compatible API)
+        # Create LLM for LlamaIndex agent (using OpenAI)
         llm = OpenAI(
-            api_key=self.settings.grok.api_key,
-            base_url=self.settings.grok.api_base_url,
-            model=self.settings.grok.model,
-            temperature=self.settings.grok.temperature,
+            api_key=self.settings.openai.api_key,
+            base_url=self.settings.openai.api_base_url,
+            model=self.settings.openai.model,
+            temperature=self.settings.openai.temperature,
         )
 
         # Create ReAct agent

@@ -40,6 +40,34 @@ class GrokSettings(BaseSettings):
         return v
 
 
+class OpenAISettings(BaseSettings):
+    """OpenAI API configuration."""
+
+    api_key: str = Field(..., alias="OPENAI_API_KEY")
+    api_base_url: str = Field(
+        default="https://api.openai.com/v1", alias="OPENAI_API_BASE_URL"
+    )
+    model: str = Field(..., alias="OPENAI_MODEL")
+    temperature: float = Field(default=0.7, alias="OPENAI_TEMPERATURE")
+    max_tokens: int = Field(default=2000, alias="OPENAI_MAX_TOKENS")
+    timeout: int = Field(default=60, alias="OPENAI_TIMEOUT")
+
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        case_sensitive=False,
+        extra="ignore",
+    )
+
+    @field_validator("api_key")
+    @classmethod
+    def validate_api_key(cls, v: str) -> str:
+        """Validate that API key is provided."""
+        if not v or v == "your_openai_api_key_here":
+            raise ValueError("OPENAI_API_KEY must be set in environment or .env file")
+        return v
+
+
 class VectorStoreSettings(BaseSettings):
     """Vector store configuration."""
 
@@ -127,6 +155,7 @@ class Settings(BaseSettings):
     """Main settings class combining all configuration sections."""
 
     grok: GrokSettings = Field(default_factory=GrokSettings)
+    openai: OpenAISettings = Field(default_factory=OpenAISettings)
     vector_store: VectorStoreSettings = Field(default_factory=VectorStoreSettings)
     agent: AgentSettings = Field(default_factory=AgentSettings)
     logging: LoggingSettings = Field(default_factory=LoggingSettings)
