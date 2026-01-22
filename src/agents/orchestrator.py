@@ -9,6 +9,7 @@ from llama_index.core.agent import ReActAgent
 from llama_index.core.workflow import Context
 from llama_index.llms.openai import OpenAI
 
+from src.agents.callbacks import ToolExecutionTracker, create_callback_manager
 from src.agents.context_manager import ContextManager
 from src.agents.grok_client import GrokClient, GrokAPIError
 from src.config.settings import get_settings
@@ -107,12 +108,32 @@ class AgentOrchestrator:
         logger.info("Executing plan...")
 
         start_time = time.time()
-        execution_steps = []
+        
+        # Create tool execution tracker
+        tracker = ToolExecutionTracker()
+        callback_manager = create_callback_manager(tracker)
 
         try:
             # Use LlamaIndex agent to execute
             # The agent will use tools based on the query and plan
             full_query = f"Query: {query}\n\nPlan: {plan}\n\nExecute this plan step by step."
+
+            # Create LLM with callback manager for this execution
+            tools = self.tool_registry.get_tools()
+            llm = OpenAI(
+                api_key=self.settings.openai.api_key,
+                base_url=self.settings.openai.api_base_url,
+                model=self.settings.openai.model,
+                temperature=self.settings.openai.temperature,
+                callback_manager=callback_manager,
+            )
+            
+            # Create a temporary agent with callback manager for this execution
+            execution_agent = ReActAgent(
+                tools=tools,
+                llm=llm,
+                verbose=True,
+            )
 
             # Create and set event loop BEFORE any agent operations
             # This is critical because agent.run() may need the event loop during initialization
@@ -123,9 +144,9 @@ class AgentOrchestrator:
                 # Wrap the async operation
                 async def run_agent():
                     # Create context for the agent (inside async context with event loop)
-                    ctx = Context(self.agent)
-                    # Run the agent and get the handler
-                    handler = self.agent.run(full_query, ctx=ctx)
+                    ctx = Context(execution_agent)
+                    # Run the agent - callback manager is set on LLM
+                    handler = execution_agent.run(full_query, ctx=ctx)
                     # Await the handler to get the response
                     response_obj = await handler
                     return str(response_obj)
@@ -137,7 +158,12 @@ class AgentOrchestrator:
                 loop.close()
                 asyncio.set_event_loop(None)
 
+            # Extract tool calls from tracker
+            execution_steps = tracker.get_tool_calls()
             execution_time = time.time() - start_time
+
+            if execution_steps:
+                logger.info(f"Tracked {len(execution_steps)} tool calls during execution")
 
             result = {
                 "response": response,
@@ -158,6 +184,9 @@ class AgentOrchestrator:
         except Exception as e:
             execution_time = time.time() - start_time
             logger.error(f"Execution error: {e}")
+
+            # Extract any tool calls that were tracked before the error
+            execution_steps = tracker.get_tool_calls() if 'tracker' in locals() else []
 
             result = {
                 "response": f"Error during execution: {str(e)}",
