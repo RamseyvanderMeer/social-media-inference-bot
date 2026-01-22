@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: xai-agentic-workflow
+    environment:
+      - GROK_API_KEY=${GROK_API_KEY}
+      - GROK_API_BASE_URL=${GROK_API_BASE_URL:-https://api.x.ai/v1}
+      - GROK_MODEL=${GROK_MODEL:-grok-beta}
+      - CHROMA_DB_PATH=/app/data/chroma_db
+      - CHROMA_COLLECTION_NAME=${CHROMA_COLLECTION_NAME:-x_data}
+      - MAX_ITERATIONS=${MAX_ITERATIONS:-10}
+      - AGENT_TIMEOUT=${AGENT_TIMEOUT:-300}
+      - CONTEXT_WINDOW_SIZE=${CONTEXT_WINDOW_SIZE:-10}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+    volumes:
+      - ./data:/app/data
+      - ./evaluation_results:/app/evaluation_results
+    working_dir: /app
+    stdin_open: true
+    tty: true
+    command: python run.py interactive
