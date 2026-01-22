@@ -1,0 +1,184 @@
+{
+  "total_queries": 5,
+  "tool_result_quality": {},
+  "tool_result_stats": {
+    "search_x_data": {
+      "total_calls": 7,
+      "empty_results": 0,
+      "error_results": 0,
+      "valid_results": 7,
+      "avg_result_length": 373.7142857142857,
+      "result_examples": [
+        "Result 1 (score: 0.260):\n[ai_visionary] 2026-01-17T16:39:05.837658 | Topic: AI | Sarcastic\nAI hype is peak VC theater: founders burn millions on 'revolutionary' LLMs that just autocomplete your emails",
+        "Result 1 (score: 0.525):\n[techscribe_daily] 2026-01-08T03:53:57.276180 | Topic: Python\nPython's 'batteries included' philosophy is overrated—it's a bloated mess compared to Go's simplicity. Time to di",
+        "Result 1 (score: 0.558):\n[techscribe_daily] 2026-01-08T03:53:57.276180 | Topic: Python\nPython's 'batteries included' philosophy is overrated—it's a bloated mess compared to Go's simplicity. Time to di"
+      ]
+    },
+    "extract_entities": {
+      "total_calls": 3,
+      "empty_results": 0,
+      "error_results": 0,
+      "valid_results": 3,
+      "avg_result_length": 284.0,
+      "result_examples": [
+        "- **Languages**: Python, Go\n- **Philosophy/Concept**: \"batteries included\"\n- **Topics**: Programming, simplicity vs. bloat, language comparison/switching\n- **Hashtags**: #Python, #Programming",
+        "- **People/Handles**: code_ninja_92\n- **Date/Time**: 2026-01-11T06:17:23.921819\n- **Topics/Hashtags**: machine learning, #MachineLearning, #Engineering\n- **Key Concepts**: ML hype, AI models, fancy re",
+        "### Key Entities Extracted\n\n#### People\n- Cathie Wood (mentioned as @CathieDWood)\n\n#### Places\n- None explicitly mentioned\n\n#### Organizations\n- None explicitly mentioned\n\n#### Topics\n- Remote work\n- "
+      ]
+    },
+    "summarize_thread": {
+      "total_calls": 2,
+      "empty_results": 0,
+      "error_results": 0,
+      "valid_results": 2,
+      "avg_result_length": 306.0,
+      "result_examples": [
+        "Python's \"batteries included\" stdlib is bloated vs. Go's lean design, claims tweet. Ditch Python for speed? Nah—Python's ecosystem + speedups (NumPy, PyPy) crush Go in data/ML; Go wins CLI/tools. Choo",
+        "Two X posts on remote work:\n\n1. @code_ninja_92 (Jan 4, 2026): Prefers hybrid (2 office days/wk) for serendipitous ideas + remote deep work; ends isolation. Asks who's switching. #RemoteWork #SWE\n\n2. @"
+      ]
+    },
+    "analyze_sentiment": {
+      "total_calls": 2,
+      "empty_results": 0,
+      "error_results": 0,
+      "valid_results": 2,
+      "avg_result_length": 896.0,
+      "result_examples": [
+        "### Sentiment: Negative\n\n**Explanation**:  \nThe content expresses strong criticism and disillusionment toward machine learning (ML) and AI hype, using dismissive phrases like \"ML hype is dead,\" \"'AI' ",
+        "### Overall Sentiment: Positive\n\nThe provided content consists of two social media-style posts, both expressing strongly positive views on remote and hybrid work models. There are no negative or neutr"
+      ]
+    }
+  },
+  "search_quality": {
+    "total_searches": 7,
+    "results_with_scores": 7,
+    "avg_score": 0.5456666666666666,
+    "low_score_results": 1,
+    "high_score_results": 8
+  },
+  "entity_extraction_quality": {
+    "total_calls": 3,
+    "results_with_entities": 3,
+    "empty_entity_results": 0,
+    "entity_count_distribution": [
+      7,
+      9,
+      36
+    ]
+  },
+  "sentiment_analysis_quality": {
+    "total_calls": 2,
+    "results_with_sentiment": 2,
+    "empty_sentiment_results": 0
+  },
+  "summarization_quality": {
+    "total_calls": 2,
+    "results_with_summary": 2,
+    "empty_summary_results": 0,
+    "avg_summary_length": 306.0
+  },
+  "query_tool_effectiveness": [
+    {
+      "query": "What are people saying about AI?",
+      "tools_used": [
+        "search_x_data"
+      ],
+      "tool_results_quality": {
+        "search_x_data": {
+          "has_content": true,
+          "result_length": 232,
+          "is_error": false
+        }
+      }
+    },
+    {
+      "query": "Find discussions about Python programming",
+      "tools_used": [
+        "search_x_data",
+        "search_x_data",
+        "extract_entities",
+        "summarize_thread"
+      ],
+      "tool_results_quality": {
+        "search_x_data": {
+          "has_content": true,
+          "result_length": 246,
+          "is_error": false
+        },
+        "extract_entities": {
+          "has_entities": true,
+          "result_length": 191,
+          "is_error": false
+        },
+        "summarize_thread": {
+          "has_summary": true,
+          "result_length": 223,
+          "is_error": false
+        }
+      }
+    },
+    {
+      "query": "What topics are trending in tech discussions?",
+      "tools_used": [],
+      "tool_results_quality": {}
+    },
+    {
+      "query": "Show me posts about machine learning",
+      "tools_used": [
+        "search_x_data",
+        "search_x_data",
+        "extract_entities",
+        "analyze_sentiment"
+      ],
+      "tool_results_quality": {
+        "search_x_data": {
+          "has_content": true,
+          "result_length": 295,
+          "is_error": false
+        },
+        "extract_entities": {
+          "has_entities": true,
+          "result_length": 270,
+          "is_error": false
+        },
+        "analyze_sentiment": {
+          "has_sentiment": true,
+          "result_length": 777,
+          "is_error": false
+        }
+      }
+    },
+    {
+      "query": "What do people think about remote work?",
+      "tools_used": [
+        "search_x_data",
+        "search_x_data",
+        "extract_entities",
+        "analyze_sentiment",
+        "summarize_thread"
+      ],
+      "tool_results_quality": {
+        "search_x_data": {
+          "has_content": true,
+          "result_length": 651,
+          "is_error": false
+        },
+        "extract_entities": {
+          "has_entities": true,
+          "result_length": 391,
+          "is_error": false
+        },
+        "analyze_sentiment": {
+          "has_sentiment": true,
+          "result_length": 1015,
+          "is_error": false
+        },
+        "summarize_thread": {
+          "has_summary": true,
+          "result_length": 389,
+          "is_error": false
+        }
+      }
+    }
+  ]
+}
