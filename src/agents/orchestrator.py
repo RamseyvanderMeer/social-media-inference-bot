@@ -116,7 +116,12 @@ class AgentOrchestrator:
         try:
             # Use LlamaIndex agent to execute
             # The agent will use tools based on the query and plan
-            full_query = f"Query: {query}\n\nPlan: {plan}\n\nExecute this plan step by step."
+            full_query = f"""Query: {query}
+
+Plan to execute:
+{plan}
+
+IMPORTANT: You must follow this plan step by step. The plan specifies which tools to use - you MUST call all tools mentioned in the plan, even if you think you have enough information. Do not skip any steps or tools. Execute each step in the plan sequentially."""
 
             # Create LLM with callback manager for this execution
             tools = self.tool_registry.get_tools()
@@ -129,11 +134,13 @@ class AgentOrchestrator:
             )
             
             # Create a temporary agent with callback manager for this execution
+            # Use max_iterations from settings to allow more tool calls
             execution_agent = ReActAgent(
                 tools=tools,
                 llm=llm,
                 verbose=True,
                 callback_manager=callback_manager,
+                max_iterations=self.settings.agent.max_iterations if hasattr(self.settings, 'agent') else 15,
             )
             logger.info(f"Created execution agent with callback manager. Tracker initialized.")
 

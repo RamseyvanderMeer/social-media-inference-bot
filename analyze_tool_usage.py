@@ -62,8 +62,17 @@ def analyze_tool_usage(results_file: Path) -> Dict:
         # Extract tools from plan
         tools_in_plan = extract_tools_from_text(plan)
         
-        # Extract tools from execution response (indicating actual usage)
-        tools_in_execution = extract_tools_from_text(execution_response)
+        # Extract tools from execution steps (actual tracked tool calls)
+        tools_in_execution = set()
+        for step in execution_steps:
+            if isinstance(step, dict) and "tool_name" in step:
+                tool_name = step.get("tool_name", "")
+                if tool_name and tool_name != "unknown":
+                    tools_in_execution.add(tool_name)
+        
+        # Also check execution response text as fallback
+        if not tools_in_execution:
+            tools_in_execution = extract_tools_from_text(execution_response)
         
         # Count tool mentions
         for tool in tools_in_plan:
