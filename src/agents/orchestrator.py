@@ -7,7 +7,7 @@ from typing import Any, Dict, List, Optional
 
 from llama_index.core.agent import ReActAgent
 from llama_index.core.workflow import Context
-from llama_index.llms.openai import OpenAI
+from llama_index.llms.openai_like import OpenAILike
 
 from src.agents.callbacks import ToolExecutionTracker, create_callback_manager
 from src.agents.context_manager import ContextManager
@@ -41,12 +41,14 @@ class AgentOrchestrator:
         # Initialize LlamaIndex agent with tools
         tools = self.tool_registry.get_tools()
 
-        # Create LLM for LlamaIndex agent (using OpenAI)
-        llm = OpenAI(
-            api_key=self.settings.openai.api_key,
-            base_url=self.settings.openai.api_base_url,
-            model=self.settings.openai.model,
-            temperature=self.settings.openai.temperature,
+        # Create LLM for LlamaIndex agent (using Grok via OpenAILike)
+        # Set is_chat_model=True so OpenAILike uses /chat/completions endpoint
+        llm = OpenAILike(
+            api_key=self.settings.grok.api_key,
+            api_base=self.settings.grok.api_base_url,
+            model=self.settings.grok.model,
+            temperature=self.settings.grok.temperature,
+            is_chat_model=True,
         )
 
         # Create ReAct agent
@@ -124,12 +126,14 @@ Plan to execute:
 IMPORTANT: You must follow this plan step by step. The plan specifies which tools to use - you MUST call all tools mentioned in the plan, even if you think you have enough information. Do not skip any steps or tools. Execute each step in the plan sequentially."""
 
             # Create LLM with callback manager for this execution
+            # Set is_chat_model=True so OpenAILike uses /chat/completions endpoint
             tools = self.tool_registry.get_tools()
-            llm = OpenAI(
-                api_key=self.settings.openai.api_key,
-                base_url=self.settings.openai.api_base_url,
-                model=self.settings.openai.model,
-                temperature=self.settings.openai.temperature,
+            llm = OpenAILike(
+                api_key=self.settings.grok.api_key,
+                api_base=self.settings.grok.api_base_url,
+                model=self.settings.grok.model,
+                temperature=self.settings.grok.temperature,
+                is_chat_model=True,
                 callback_manager=callback_manager,
             )
             
