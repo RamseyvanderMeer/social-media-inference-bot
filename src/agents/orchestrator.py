@@ -133,7 +133,9 @@ class AgentOrchestrator:
                 tools=tools,
                 llm=llm,
                 verbose=True,
+                callback_manager=callback_manager,
             )
+            logger.info(f"Created execution agent with callback manager. Tracker initialized.")
 
             # Create and set event loop BEFORE any agent operations
             # This is critical because agent.run() may need the event loop during initialization
@@ -149,6 +151,28 @@ class AgentOrchestrator:
                     handler = execution_agent.run(full_query, ctx=ctx)
                     # Await the handler to get the response
                     response_obj = await handler
+                    
+                    # Extract tool calls from the response object
+                    # The workflow agent stores tool calls in the response
+                    if hasattr(response_obj, 'tool_calls') and response_obj.tool_calls:
+                        logger.info(f"Found {len(response_obj.tool_calls)} tool calls in response")
+                        for i, tool_call in enumerate(response_obj.tool_calls, 1):
+                            # Extract tool call information
+                            tool_name = getattr(tool_call, 'tool_name', getattr(tool_call, 'name', 'unknown'))
+                            tool_input = getattr(tool_call, 'tool_input', getattr(tool_call, 'input', {}))
+                            tool_output = getattr(tool_call, 'tool_output', getattr(tool_call, 'output', ''))
+                            
+                            tool_call_data = {
+                                "step_number": i,
+                                "tool_name": tool_name,
+                                "parameters": tool_input if isinstance(tool_input, dict) else {"input": tool_input},
+                                "result": str(tool_output)[:1000] + ("... [truncated]" if len(str(tool_output)) > 1000 else ""),
+                                "execution_time": 0.0,  # Workflow agent doesn't provide timing
+                                "timestamp": time.time(),
+                            }
+                            tracker.tool_calls.append(tool_call_data)
+                            logger.info(f"Tracked tool call: {tool_name}")
+                    
                     return str(response_obj)
                 
                 # Run the async function with the event loop we created

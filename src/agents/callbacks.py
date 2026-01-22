@@ -41,6 +41,7 @@ class ToolExecutionTracker:
         **kwargs: Any,
     ) -> str:
         """Handle event start."""
+        logger.info(f"Tracker: event_start - type={event_type}, event_id={event_id}, payload_keys={list(payload.keys()) if payload else 'None'}")
         if event_type == CBEventType.FUNCTION_CALL:
             # Track tool call start
             # Extract tool information from payload
@@ -73,7 +74,7 @@ class ToolExecutionTracker:
             self._tool_start_times[event_id] = start_time
             self._tool_info[event_id] = {"name": tool_name, "args": tool_args}
             
-            logger.debug(f"Tool call started: {tool_name} with args: {tool_args}")
+            logger.info(f"Tool call started: {tool_name} with args: {tool_args}")
         
         return event_id
 
@@ -142,7 +143,7 @@ class ToolExecutionTracker:
             }
             
             self.tool_calls.append(tool_call)
-            logger.debug(f"Tool call completed: {tool_name} in {execution_time:.3f}s")
+            logger.info(f"Tool call completed: {tool_name} in {execution_time:.3f}s")
         
         elif event_type == CBEventType.LLM:
             # Check for tool calls in LLM response
@@ -192,6 +193,7 @@ class ToolExecutionCallbackHandler(BaseCallbackHandler):
         **kwargs: Any,
     ) -> str:
         """Handle event start."""
+        logger.debug(f"Callback: event_start - type={event_type}, event_id={event_id}")
         self.tracker.on_event_start(event_type, payload, event_id, parent_id, **kwargs)
         return event_id
 
@@ -203,6 +205,7 @@ class ToolExecutionCallbackHandler(BaseCallbackHandler):
         **kwargs: Any,
     ) -> None:
         """Handle event end."""
+        logger.debug(f"Callback: event_end - type={event_type}, event_id={event_id}")
         self.tracker.on_event_end(event_type, payload, event_id, **kwargs)
 
 
