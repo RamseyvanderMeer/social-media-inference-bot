@@ -6,20 +6,48 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: xai-agentic-workflow
+    image: xai-agentic-workflow:latest
     environment:
+      # Grok API Configuration
       - GROK_API_KEY=${GROK_API_KEY}
       - GROK_API_BASE_URL=${GROK_API_BASE_URL:-https://api.x.ai/v1}
       - GROK_MODEL=${GROK_MODEL:-grok-beta}
+      
+      # OpenAI API Configuration (for embeddings)
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - OPENAI_API_BASE_URL=${OPENAI_API_BASE_URL:-https://api.openai.com/v1}
+      - OPENAI_MODEL=${OPENAI_MODEL:-gpt-4o-mini}
+      
+      # ChromaDB Configuration
       - CHROMA_DB_PATH=/app/data/chroma_db
       - CHROMA_COLLECTION_NAME=${CHROMA_COLLECTION_NAME:-x_data}
+      
+      # Agent Configuration
       - MAX_ITERATIONS=${MAX_ITERATIONS:-10}
       - AGENT_TIMEOUT=${AGENT_TIMEOUT:-300}
       - CONTEXT_WINDOW_SIZE=${CONTEXT_WINDOW_SIZE:-10}
+      
+      # Logging
       - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      
+      # Python Configuration
+      - PYTHONUNBUFFERED=1
+      - PYTHONDONTWRITEBYTECODE=1
+      - PYTHONPATH=/app
     volumes:
+      # Persist data and vector store
       - ./data:/app/data
+      # Persist evaluation results
       - ./evaluation_results:/app/evaluation_results
     working_dir: /app
     stdin_open: true
     tty: true
+    # Default command (can be overridden)
     command: python run.py interactive
+    restart: unless-stopped
+    networks:
+      - xai-network
+
+networks:
+  xai-network:
+    driver: bridge
