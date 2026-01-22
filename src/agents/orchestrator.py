@@ -114,18 +114,28 @@ class AgentOrchestrator:
             # The agent will use tools based on the query and plan
             full_query = f"Query: {query}\n\nPlan: {plan}\n\nExecute this plan step by step."
 
-            # Create context for the agent
-            ctx = Context(self.agent)
+            # Create and set event loop BEFORE any agent operations
+            # This is critical because agent.run() may need the event loop during initialization
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
             
-            # Run the agent and get the handler
-            handler = self.agent.run(full_query, ctx=ctx)
-            
-            # Await the handler to get the response (using asyncio.run for sync context)
-            async def get_response():
-                return await handler
-            
-            response_obj = asyncio.run(get_response())
-            response = str(response_obj)
+            try:
+                # Wrap the async operation
+                async def run_agent():
+                    # Create context for the agent (inside async context with event loop)
+                    ctx = Context(self.agent)
+                    # Run the agent and get the handler
+                    handler = self.agent.run(full_query, ctx=ctx)
+                    # Await the handler to get the response
+                    response_obj = await handler
+                    return str(response_obj)
+                
+                # Run the async function with the event loop we created
+                response = loop.run_until_complete(run_agent())
+            finally:
+                # Clean up the event loop
+                loop.close()
+                asyncio.set_event_loop(None)
 
             execution_time = time.time() - start_time
 
